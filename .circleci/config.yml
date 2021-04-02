@@ -4,7 +4,7 @@ orbs:
   win: circleci/windows@2.2.0 # The Windows orb give you everything you need to start using the Windows executor.
 
 jobs:
-  build: # name of your job
+  build-core: # name of your job
     executor:
       name: win/default # executor type
       size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
@@ -12,4 +12,9 @@ jobs:
     steps:
       # Commands are run in a Windows virtual machine environment
       - checkout
-      - run: Write-Host 'Hello, Windows'
+      - run:
+          command: dotnet test .\dotnet-sdk-core\src\test\Reloadly.Core.Tests.Unit\Reloadly.Core.Tests.Unit.csproj
+      - run:
+          command: dotnet restore .\dotnet-sdk-core\src\main\Reloadly.Core\Reloadly.Core.csproj -p:TargetFrameworks=netstandard2.1
+      - run:
+          command: dotnet build .\dotnet-sdk-core\src\main\Reloadly.Core\Reloadly.Core.csproj -p:TargetFrameworks=netstandard2.1
