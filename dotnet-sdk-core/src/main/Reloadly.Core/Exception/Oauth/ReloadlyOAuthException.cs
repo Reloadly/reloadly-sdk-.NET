@@ -13,6 +13,21 @@ namespace Reloadly.Core.Exception.Oauth
         /// </summary>
         public ReloadlyRequest Request { get; }
 
+        public ReloadlyOAuthException()
+        {
+            Request = default!;
+        }
+
+        public ReloadlyOAuthException(string message) : base(message)
+        {
+            Request = default!;
+        }
+
+        public ReloadlyOAuthException(string message, System.Exception innerException) : base(message, innerException)
+        {
+            Request = default!;
+        }
+
         protected ReloadlyOAuthException(SerializationInfo info, StreamingContext context)
             : base(info, context) { Request = default!; }
 

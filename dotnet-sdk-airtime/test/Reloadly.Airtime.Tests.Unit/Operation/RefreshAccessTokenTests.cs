@@ -57,12 +57,12 @@ namespace Reloadly.Airtime.Tests.Unit.Operation
             {
                 var _ = await api.Accounts.GetBalanceAsync();
             }
-            catch (ReloadlyOAuthException ex)
+            catch (ReloadlyOAuthException<AccountBalanceInfo> ex)
             {
-                var response = await api.RefreshTokenForRequest<AccountBalanceInfo>(ex.Request, ValidToken);
+                var response = await api.RefreshTokenForRequest(ex.Request, ValidToken);
 
                 var reloadlyHttpClient = new ReloadlyHttpClient(factoryMock.Object, ReloadlyApiVersion.AirtimeV1);
-                var result = await reloadlyHttpClient.SendAsync<AccountBalanceInfo>(ex.Request);
+                var result = await reloadlyHttpClient.SendAsync(ex.Request);
                 Assert.AreEqual(9m, result.Amount);
             }
         }

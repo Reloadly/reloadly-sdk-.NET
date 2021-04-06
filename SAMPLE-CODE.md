@@ -48,6 +48,40 @@ services
     });
 ```
 
+## Handling Authentication Exceptions
+
+An operation may throw a `ReloadlyOAuthException` when the access token expires. When this happens, you will need to refresh the access token. Once the token is refreshed, you may want to repeat the request rather than displaying an error to the end user. To easily repeat a request, the exception thrown will have a `Request` property containing a repeatable `ReloadlyRequest` object.
+
+You may see a working example of this implementation in the [Reloadly.Console.Example](Reloadly.Console.Example/README.md) project,
+
+```csharp
+public MyService(
+    IAuthenticationApi authenticationApi,
+    IAirtimeApi airtimeApi)
+{
+    _authenticationApi = authenticationApi;
+    _airtimeApi = airtimeApi;
+}
+
+public async Task PrintBalanceAsync()
+{
+    AccountBalanceInfo balance;
+
+    try
+    {
+        balance = await _airtimeApi.Accounts.GetBalanceAsync();
+    }
+    catch (ReloadlyOAuthException<AccountBalanceInfo> ex)
+    {
+        var accessToken = await _authenticationApi.ClientCredentials.GetAccessTokenAsync();
+        balance = await _airtimeApi.RefreshTokenForRequest(ex.Request, accessToken.AccessToken!);
+    }
+
+    // Use the response
+    var myBalance = balance.Amount;
+}
+```
+
 ### Request Latency Telemetry
 
 By default, the library sends request latency telemetry to Reloadly. These numbers help Reloadly improve the overall

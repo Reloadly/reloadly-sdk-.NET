@@ -33,7 +33,7 @@ namespace Reloadly.Core.Internal.Net
             return new ReloadlyHttpClient(_httpClientFactory, apiVersion, _disableTelemetry);
         }
 
-        public async Task<TResponse> SendAsync<TResponse>(ReloadlyRequest request)
+        public async Task<TResponse> SendAsync<TResponse>(ReloadlyRequest<TResponse> request)
             where TResponse : class
         {
             var reqMessage = request.CreateHttpRequestMessage();
@@ -46,14 +46,15 @@ namespace Reloadly.Core.Internal.Net
 
             var httpClient = _httpClientFactory.CreateClient();
             var resMessage = await httpClient.SendAsync(reqMessage);
-            return await ParseResponse<TResponse>(request, resMessage);
+            return await ParseResponse(request, resMessage);
         }
 
-        public Task<TResponse> SendAsync<TResponse>(ReloadlyRequest<TResponse> request)
+        public Task<TResponse> SendAsync<TResponse>(ReloadlyRequest request)
             where TResponse : class
-            => SendAsync<TResponse>((ReloadlyRequest)request);
+            => SendAsync<TResponse>(request);
 
-        private async Task<TResponse> ParseResponse<TResponse>(ReloadlyRequest request, HttpResponseMessage responseMessage)
+        private async Task<TResponse> ParseResponse<TResponse>(ReloadlyRequest<TResponse> request, HttpResponseMessage responseMessage)
+            where TResponse : class
         {
             if (!responseMessage.IsSuccessStatusCode)
             {
@@ -74,8 +75,9 @@ namespace Reloadly.Core.Internal.Net
             }
         }
 
-        private async Task<ReloadlyException> CreateResponseException(
-            ReloadlyRequest request, HttpResponseMessage responseMessage)
+        private async Task<ReloadlyException> CreateResponseException<TResponse>(
+            ReloadlyRequest<TResponse> request, HttpResponseMessage responseMessage)
+            where TResponse : class
         {
             if ((int)responseMessage.StatusCode == STATUS_CODE_TOO_MANY_REQUEST)
             {
@@ -95,14 +97,16 @@ namespace Reloadly.Core.Internal.Net
 
             if (responseMessage.RequestMessage.RequestUri.AbsolutePath.TrimStart('/') == "oauth/token")
             {
-                throw new ReloadlyOAuthException(
+                throw new ReloadlyOAuthException<TResponse>(
                     request, body, (int)responseMessage.StatusCode, responseMessage.RequestMessage.RequestUri.AbsolutePath);
             }
 
             throw new ApiException(body, (int)responseMessage.StatusCode, responseMessage.RequestMessage.RequestUri.AbsolutePath);
         }
 
-        private async Task<ReloadlyException> CreateRateLimitException(ReloadlyRequest request, HttpResponseMessage response)
+        private async Task<ReloadlyException> CreateRateLimitException<TResponse>(
+            ReloadlyRequest<TResponse> request, HttpResponseMessage response)
+            where TResponse : class
         {
             var exception = await CreateResponseException(request, response);
 

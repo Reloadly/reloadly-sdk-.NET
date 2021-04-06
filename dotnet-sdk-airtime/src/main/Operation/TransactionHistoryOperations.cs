@@ -51,11 +51,11 @@ namespace Reloadly.Airtime.Operation
 
         private void ValidateStartAndEndDate(TransactionHistoryFilter filter)
         {
-            var start = filter.Parameters.TryGetValue(TransactionHistoryFilter.START_DATE, out var startDateAsString)
+            var start = filter.Parameters.TryGetValue(TransactionHistoryFilter.START_DATE, out var _)
                 ? DateTime.ParseExact(TransactionHistoryFilter.DateFormat, "", CultureInfo.InvariantCulture)
                 : (DateTime?)null;
 
-            var end = filter.Parameters.TryGetValue(TransactionHistoryFilter.END_DATE, out var endDateAsString)
+            var end = filter.Parameters.TryGetValue(TransactionHistoryFilter.END_DATE, out var _)
                 ? DateTime.ParseExact(TransactionHistoryFilter.DateFormat, "", CultureInfo.InvariantCulture)
                 : (DateTime?)null;
 
