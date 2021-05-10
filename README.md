@@ -1,4 +1,4 @@
-# NEEDS RE-WRITING
+<img src="icon.png" width="100" height="88" align="right" alt="reloadly-dotnet-icon"/>
 
 # Reloadly SDK for .NET Core
 
