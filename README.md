@@ -1,10 +1,10 @@
-# NEEDS RE-WRITING
+<img src="icon.png" width="100" height="88" align="right" alt="reloadly-dotnet-icon"/>
 
 # Reloadly SDK for .NET Core
 
 [![MIT][mit-badge]][mit-url]
 
-The **Reloadly SDK for .NET** enables .NET developers to easily work with [Reloadly Services][reloadly-main-site]
+The **Reloadly SDK for .NET** enables developers to easily work with [Reloadly Services][reloadly-main-site]
 and build scalable solutions. You can get started in minutes using NuGet.
 
 * [SDK Homepage][sdk-website] (Coming soon)
