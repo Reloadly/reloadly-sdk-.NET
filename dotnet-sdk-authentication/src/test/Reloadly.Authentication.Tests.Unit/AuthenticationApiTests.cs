@@ -63,8 +63,8 @@ namespace Reloadly.Authentication.Tests.Unit
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ReloadlyOAuthException))]
-        public async Task ShouldCreateOauth2ClientCredentialsTokenRequestErrorResponse()
+        [ExpectedException(typeof(ReloadlyOAuthException<OAuthTokenResponse>))]
+        public async Task ShouldThrowReloadlyOAuthException()
         {
             var httpTest = new HttpTest(new Uri(ServiceUrls.AirtimeAuth))
                 .ExpectMethod(HttpMethod.Post)
@@ -79,8 +79,21 @@ namespace Reloadly.Authentication.Tests.Unit
             var oAuth2Operation = new OAuth2Operation(
                 httpTest.HttpClient, AuthenticationApi.BaseUri, CLIENT_ID, CLIENT_SECRET, ReloadlyService.AirtimeSandbox);
 
-            var tokenRequest = await oAuth2Operation.GetAccessTokenAsync();
-            Assert.IsNotNull(tokenRequest);
+            try
+            {
+                var tokenRequest = await oAuth2Operation.GetAccessTokenAsync();
+            }
+            catch (ReloadlyOAuthException ex)
+            {
+                Assert.AreEqual(401, ex.HttpStatusCode);
+                throw;
+            }
+            catch
+            {
+                Assert.Fail("A generic exception was thrown.");
+            }
+
+            Assert.Fail("An exception was not thrown.");
         }
     }
 }
