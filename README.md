@@ -109,7 +109,7 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 [circle-ci-badge]: https://circleci.com/gh/Reloadly/reloadly-sdk-dotnet.svg?style=svg&circle-token=c127c399c38db62c8fd53c085a6b932b2ecf1e4a
 
-[circle-ci-url]: https://circleci.com/gh/Reloadly/reloadly-sdk-dotnet/tree/main
+[circle-ci-url]: https://circleci.com/gh/Reloadly/reloadly-sdk-.NET/tree/main
 
 [codecov-badge]: https://codecov.io/gh/reloadly/reloadly-sdk-dotnet/branch/main/graph/badge.svg?token=8U89VKQ2BF
 
