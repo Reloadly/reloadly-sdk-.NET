@@ -2,6 +2,7 @@
 
 # Reloadly SDK for .NET Core
 
+[![CircleCI][circle-ci-badge]][circle-ci-url]
 [![MIT][mit-badge]][mit-url]
 
 The **Reloadly SDK for .NET** enables developers to easily work with [Reloadly Services][reloadly-main-site]
@@ -106,7 +107,7 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 [maven-url]: https://search.maven.org/search?q=g:software.reloadly
 
-[circle-ci-badge]: https://circleci.com/gh/Reloadly/reloadly-sdk-dotnet.svg?style=svg&circle-token=f06dbc5f2511715447dd8d62ff00065cb245701e
+[circle-ci-badge]: https://circleci.com/gh/Reloadly/reloadly-sdk-dotnet.svg?style=svg&circle-token=c127c399c38db62c8fd53c085a6b932b2ecf1e4a
 
 [circle-ci-url]: https://circleci.com/gh/Reloadly/reloadly-sdk-dotnet/tree/main
 
