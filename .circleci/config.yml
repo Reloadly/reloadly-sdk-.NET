@@ -36,4 +36,4 @@ jobs:
       - run:
           name: Upload Coverage
           when: on_success
-          command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+          command: bash (curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
