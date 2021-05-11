@@ -4,6 +4,9 @@
 
 [![CircleCI][circle-ci-badge]][circle-ci-url]
 [![MIT][mit-badge]][mit-url]
+[![nuget-airtime-badge]][nuget-airtime-badge]
+[![nuget-authentication-badge]][nuget-authentication-badge]
+[![nuget-core-badge]][nuget-core-url]
 
 The **Reloadly SDK for .NET** enables developers to easily work with [Reloadly Services][reloadly-main-site]
 and build scalable solutions. You can get started in minutes using NuGet.
@@ -122,3 +125,19 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 [stack-overflow]: http://stackoverflow.com/questions/tagged/reloadly-reloadly-sdk
 
 [support-center]: https://faq.reloadly.com/en/articles/3423196-contacting-support
+
+[nuget-airtime-badge]: https://img.shields.io/nuget/v/Reloadly.Airtime?label=Reloadly.Airtime
+
+[nuget-airtime-url]: https://www.nuget.org/packages/Reloadly.Airtime
+
+[nuget-authentication-badge]: https://img.shields.io/nuget/v/Reloadly.Authentication?label=Reloadly.Authentication
+
+[nuget-authentication-url]: https://www.nuget.org/packages/Reloadly.Authentication
+
+[nuget-core-badge]: https://img.shields.io/nuget/v/Reloadly.Core?label=Reloadly.Core
+
+[nuget-core-url]: https://www.nuget.org/packages/Reloadly.Core
+
+
+
+
