@@ -46,13 +46,8 @@ namespace Reloadly.Core.Internal.Net
 
             var httpClient = _httpClientFactory.CreateClient();
             var resMessage = await httpClient.SendAsync(reqMessage);
-            return await ParseResponse(request, resMessage);
+            return await ParseResponse<TResponse>(request, resMessage);
         }
-
-        public Task<TResponse> SendAsync<TResponse>(ReloadlyRequest request)
-            where TResponse : class
-            => SendAsync<TResponse>(request);
-
         private async Task<TResponse> ParseResponse<TResponse>(ReloadlyRequest<TResponse> request, HttpResponseMessage responseMessage)
             where TResponse : class
         {

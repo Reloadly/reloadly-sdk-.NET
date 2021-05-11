@@ -76,17 +76,13 @@ namespace Reloadly.Airtime
                     ? new ReportOperations(_httpClient, _baseUrl, ClientId!, ClientSecret!, _environment)
                     : new ReportOperations(_httpClient, _baseUrl, AccessToken, _environment);
 
-        public Task<TResponse> RefreshTokenForRequest<TResponse>(ReloadlyRequest request, string accessToken)
+        public Task<TResponse> RefreshTokenForRequest<TResponse>(ReloadlyRequest<TResponse> request, string accessToken)
             where TResponse : class
         {
             AccessToken = accessToken;
             request.SetHeader(HeaderNames.Authorization, $"Bearer {accessToken}");
-            return _httpClient.SendAsync<TResponse>(request);
+            return _httpClient.SendAsync(request);
         }
-
-        public Task<TResponse> RefreshTokenForRequest<TResponse>(ReloadlyRequest<TResponse> request, string accessToken)
-            where TResponse : class
-            => RefreshTokenForRequest<TResponse>((ReloadlyRequest)request, accessToken);
 
         private Uri CreateBaseUrl()
         {

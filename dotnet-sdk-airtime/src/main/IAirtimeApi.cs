@@ -14,7 +14,6 @@ namespace Reloadly.Airtime
         IReportOperations Reports { get; }
         ITopupOperations Topups { get; }
 
-        Task<TResponse> RefreshTokenForRequest<TResponse>(ReloadlyRequest request, string accessToken) where TResponse : class;
         Task<TResponse> RefreshTokenForRequest<TResponse>(ReloadlyRequest<TResponse> request, string accessToken) where TResponse : class;
     }
 }
