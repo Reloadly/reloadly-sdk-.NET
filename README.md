@@ -107,7 +107,7 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 [maven-url]: https://search.maven.org/search?q=g:software.reloadly
 
-[circle-ci-badge]: https://circleci.com/gh/Reloadly/reloadly-sdk-dotnet.svg?style=svg&circle-token=c127c399c38db62c8fd53c085a6b932b2ecf1e4a
+[circle-ci-badge]: https://circleci.com/gh/Reloadly/reloadly-sdk-.NET.svg?style=svg&circle-token=c127c399c38db62c8fd53c085a6b932b2ecf1e4a
 
 [circle-ci-url]: https://circleci.com/gh/Reloadly/reloadly-sdk-.NET/tree/main
 
