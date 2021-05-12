@@ -32,8 +32,3 @@ jobs:
           command: dotnet build .\dotnet-sdk-airtime\src\main\Reloadly.Airtime.csproj
       - run:
           command: dotnet test .\dotnet-sdk-airtime\test\Reloadly.Airtime.Tests.Unit\Reloadly.Airtime.Tests.Unit.csproj
-      # Code Coverage
-      - run:
-          name: Upload Coverage
-          when: on_success
-          command: bash (curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
