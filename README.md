@@ -4,8 +4,8 @@
 
 [![CircleCI][circle-ci-badge]][circle-ci-url]
 [![MIT][mit-badge]][mit-url]
-[![nuget-airtime-badge]][nuget-airtime-badge]
-[![nuget-authentication-badge]][nuget-authentication-badge]
+[![nuget-airtime-badge]][nuget-airtime-url]
+[![nuget-authentication-badge]][nuget-authentication-url]
 [![nuget-core-badge]][nuget-core-url]
 
 The **Reloadly SDK for .NET** enables developers to easily work with [Reloadly Services][reloadly-main-site]
