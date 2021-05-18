@@ -31,4 +31,4 @@ jobs:
       - run:
           command: dotnet build .\dotnet-sdk-airtime\src\main\Reloadly.Airtime.csproj
       - run:
-          command: dotnet test .\dotnet-sdk-airtime\test\Reloadly.Airtime.Tests.Unit\Reloadly.Airtime.Tests.Unit.csproj
+          command: dotnet test .\dotnet-sdk-airtime\src\test\Reloadly.Airtime.Tests.Unit\Reloadly.Airtime.Tests.Unit.csproj
