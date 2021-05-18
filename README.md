@@ -86,17 +86,17 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 [api-credentials-help]: https://faq.reloadly.com/en/articles/3519543-locating-your-api-credentials
 
-[sdk-issues]: https://github.com/reloadly/reloadly-sdk-dotnet/issues
+[sdk-issues]: https://github.com/Reloadly/reloadly-sdk-.NET/issues
 
 [sdk-license]: http://www.reloadly.com/software/apache2.0/
 
 [gitter]: https://gitter.im/reloadly/reloadly-sdk-dotnet
 
-[sample-code]: https://github.com/reloadly/reloadly-sdk-dotnet/blob/master/SAMPLE-CODE.md
+[sample-code]: https://github.com/Reloadly/reloadly-sdk-.NET/blob/main/SAMPLE-CODE.md
 
 [docs-api]: https://developers.reloadly.com
 
-[features]: https://github.com/reloadly/reloadly-sdk-dotnet/issues?q=is%3Aopen+is%3Aissue+label%3A%22feature-request%22
+[features]: https://github.com/reloadly/reloadly-sdk-.NET/issues?q=is%3Aopen+is%3Aissue+label%3A%22feature-request%22
 
 [api-docs]: https://developers.reloadly.com
 
@@ -104,7 +104,7 @@ This project is licensed under the MIT license. See the [LICENSE](LICENSE) file 
 
 [mit-badge]: http://img.shields.io/:license-mit-blue.svg?style=flat
 
-[mit-url]: https://github.com/reloadly/reloadly-sdk-dotnet/raw/master/LICENSE
+[mit-url]: https://github.com/reloadly/reloadly-sdk-dotnet/raw/main/LICENSE
 
 [maven-badge]: https://img.shields.io/maven-central/v/software.reloadly/reloadly-dotnet/reloadly.svg
 
