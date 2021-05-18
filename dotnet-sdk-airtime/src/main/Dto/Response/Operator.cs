@@ -42,6 +42,10 @@ namespace Reloadly.Airtime.Dto.Response
         /// </summary>
         public bool SupportsLocalAmounts { get; set; }
 
+        public bool SupportsGeographicalRechargePlans { get; set; }
+
+        public IList<GeographicalRechargePlan> GeographicalRechargePlans { get; set; } = Array.Empty<GeographicalRechargePlan>();
+
         /// <summary>
         /// Operator amount denomination type
         /// </summary>
