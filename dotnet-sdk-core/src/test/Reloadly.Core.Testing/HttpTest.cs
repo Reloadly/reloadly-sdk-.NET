@@ -11,7 +11,7 @@ namespace Reloadly.Core.Testing
 {
     public class HttpTest
     {
-        private Uri _baseUri;
+        private readonly Uri _baseUri;
 
         public HttpTest(Uri baseUri)
         {
@@ -39,7 +39,14 @@ namespace Reloadly.Core.Testing
         public T ResponseBody<T>()
         {
             Debug.Assert(_responseBody != null, nameof(_responseBody));
-            return JsonConvert.DeserializeObject<T>(_responseBody);
+            var deserialized = JsonConvert.DeserializeObject<T>(_responseBody);
+
+            if (deserialized == null)
+            {
+                throw new System.Exception($"Cannot deserialize '{nameof(_responseBody)}'.");
+            }
+
+            return deserialized;
         }
 
         public HttpTest ConfigureOAuth(object responseBody)
