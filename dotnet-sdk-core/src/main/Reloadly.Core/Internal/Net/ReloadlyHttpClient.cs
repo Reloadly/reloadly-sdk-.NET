@@ -33,7 +33,7 @@ namespace Reloadly.Core.Internal.Net
             return new ReloadlyHttpClient(_httpClientFactory, apiVersion, _disableTelemetry);
         }
 
-        public async Task<TResponse> SendAsync<TResponse>(ReloadlyRequest<TResponse> request)
+        public async Task<TResponse?> SendAsync<TResponse>(ReloadlyRequest<TResponse> request)
             where TResponse : class
         {
             var reqMessage = request.CreateHttpRequestMessage();
@@ -46,9 +46,10 @@ namespace Reloadly.Core.Internal.Net
 
             var httpClient = _httpClientFactory.CreateClient();
             var resMessage = await httpClient.SendAsync(reqMessage);
-            return await ParseResponse<TResponse>(request, resMessage);
+            return await ParseResponse(request, resMessage);
         }
-        private async Task<TResponse> ParseResponse<TResponse>(ReloadlyRequest<TResponse> request, HttpResponseMessage responseMessage)
+
+        private async Task<TResponse?> ParseResponse<TResponse>(ReloadlyRequest<TResponse> request, HttpResponseMessage responseMessage)
             where TResponse : class
         {
             if (!responseMessage.IsSuccessStatusCode)
@@ -60,8 +61,7 @@ namespace Reloadly.Core.Internal.Net
 
             try
             {
-                TResponse body = JsonConvert.DeserializeObject<TResponse>(payload);
-                return body;
+                return JsonConvert.DeserializeObject<TResponse>(payload);
             }
             catch (System.Exception ex)
             {

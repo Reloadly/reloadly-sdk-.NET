@@ -63,7 +63,7 @@ namespace Reloadly.Airtime.Tests.Unit.Operation
 
                 var reloadlyHttpClient = new ReloadlyHttpClient(factoryMock.Object, ReloadlyApiVersion.AirtimeV1);
                 var result = await reloadlyHttpClient.SendAsync(ex.Request);
-                Assert.AreEqual(9m, result.Amount);
+                Assert.AreEqual(9m, result?.Amount);
             }
         }
 
