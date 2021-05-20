@@ -14,7 +14,7 @@ jobs:
       - run:
           name: "test env var"
           command: |
-            echo $CODECOV_TOKEN
+            echo ${CODECOV_TOKEN}
       # Core
       - run:
           command: dotnet restore .\dotnet-sdk-core\src\main\Reloadly.Core\Reloadly.Core.csproj -p:TargetFrameworks=netstandard2.1
@@ -40,4 +40,4 @@ jobs:
       - run:
           command: dotnet tool install --global Codecov.Tool
       - run:
-          command: codecov -f "**/coverage.opencover.xml" -t {CODECOV_TOKEN}
+          command: codecov -f "**/coverage.opencover.xml" -t ${CODECOV_TOKEN}
