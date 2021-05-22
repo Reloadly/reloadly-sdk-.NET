@@ -11,24 +11,33 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: "test env var"
+          command: |
+            echo $env:CODECOV_TOKEN
       # Core
       - run:
           command: dotnet restore .\dotnet-sdk-core\src\main\Reloadly.Core\Reloadly.Core.csproj -p:TargetFrameworks=netstandard2.1
       - run:
           command: dotnet build .\dotnet-sdk-core\src\main\Reloadly.Core\Reloadly.Core.csproj -p:TargetFrameworks=netstandard2.1
       - run:
-          command: dotnet test .\dotnet-sdk-core\src\test\Reloadly.Core.Tests.Unit\Reloadly.Core.Tests.Unit.csproj
+          command: dotnet test .\dotnet-sdk-core\src\test\Reloadly.Core.Tests.Unit\Reloadly.Core.Tests.Unit.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       # Authentication
       - run:
           command: dotnet restore .\dotnet-sdk-authentication\src\main\Reloadly.Authentication.csproj
       - run:
           command: dotnet build .\dotnet-sdk-authentication\src\main\Reloadly.Authentication.csproj
       - run:
-          command: dotnet test .\dotnet-sdk-authentication\src\test\Reloadly.Authentication.Tests.Unit\Reloadly.Authentication.Tests.Unit.csproj
+          command: dotnet test .\dotnet-sdk-authentication\src\test\Reloadly.Authentication.Tests.Unit\Reloadly.Authentication.Tests.Unit.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       # Airtime
       - run:
           command: dotnet restore .\dotnet-sdk-airtime\src\main\Reloadly.Airtime.csproj
       - run:
           command: dotnet build .\dotnet-sdk-airtime\src\main\Reloadly.Airtime.csproj
       - run:
-          command: dotnet test .\dotnet-sdk-airtime\src\test\Reloadly.Airtime.Tests.Unit\Reloadly.Airtime.Tests.Unit.csproj
+          command: dotnet test .\dotnet-sdk-airtime\src\test\Reloadly.Airtime.Tests.Unit\Reloadly.Airtime.Tests.Unit.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      # Code Coverage
+      - run:
+          command: dotnet tool install --global Codecov.Tool
+      - run:
+          command: codecov -f "**/coverage.opencover.xml" -t $env:CODECOV_TOKEN

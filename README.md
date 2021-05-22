@@ -7,6 +7,7 @@
 [![nuget-airtime-badge]][nuget-airtime-url]
 [![nuget-authentication-badge]][nuget-authentication-url]
 [![nuget-core-badge]][nuget-core-url]
+[![codecov](https://codecov.io/gh/Reloadly/reloadly-sdk-.NET/branch/main/graph/badge.svg?token=M6750A3FJX)](https://codecov.io/gh/Reloadly/reloadly-sdk-.NET)
 
 The **Reloadly SDK for .NET** enables developers to easily work with [Reloadly Services][reloadly-main-site]
 and build scalable solutions. You can get started in minutes using NuGet.
