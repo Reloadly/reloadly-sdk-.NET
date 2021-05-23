@@ -11,6 +11,10 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: "test env var"
+          command: |
+            echo $env:CODECOV_TOKEN
       # Core
       - run:
           command: dotnet restore .\dotnet-sdk-core\src\main\Reloadly.Core\Reloadly.Core.csproj -p:TargetFrameworks=netstandard2.1
