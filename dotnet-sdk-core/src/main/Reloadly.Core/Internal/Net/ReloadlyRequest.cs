@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
+using System.Web;
 
 namespace Reloadly.Core.Internal
 {
@@ -42,7 +44,13 @@ namespace Reloadly.Core.Internal
 
         public HttpRequestMessage CreateHttpRequestMessage()
         {
-            var requestMessage = new HttpRequestMessage(Method, Uri);
+            var uriBuilder = new UriBuilder(Uri)
+            {
+                Query =
+                    string.Join("=", QueryParameters.Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"))
+            };
+
+            var requestMessage = new HttpRequestMessage(Method, uriBuilder.Uri);
 
             foreach (var header in RequestHeaders)
             {
@@ -56,11 +64,6 @@ namespace Reloadly.Core.Internal
             }
 
             return requestMessage;
-        }
-
-        internal object AddHeader(string accept, object airtimeV1)
-        {
-            throw new NotImplementedException();
         }
     }
 }

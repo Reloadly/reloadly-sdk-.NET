@@ -85,9 +85,10 @@ namespace Reloadly.Core.Tests.Unit
         {
             var mhMock = new Mock<HttpMessageHandler>();
 
+            var baseUrl = ServiceUrls.ByEnvironment(ReloadlyEnvironment.Sandbox);
             var mockResponse = new HttpResponseMessage
             {
-                RequestMessage = new HttpRequestMessage() { RequestUri = new System.Uri("https://topups.reloadly.com") },
+                RequestMessage = new HttpRequestMessage() { RequestUri = new System.Uri(baseUrl) },
                 StatusCode = HttpStatusCode.TooManyRequests
             };
 
