@@ -12,11 +12,13 @@ using System.Linq;
 using Reloadly.Core.Internal.Utility;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Net;
+using Reloadly.Core.Exception;
 
 namespace Reloadly.Core.Tests.Unit
 {
     [TestClass]
-    public class ReloadlyClientTests
+    public class ReloadlyHttpClientTests
     {
         [TestMethod]
         public async Task ShouldSendTelemetry()
@@ -60,7 +62,7 @@ namespace Reloadly.Core.Tests.Unit
             mhMock.Protected()
                 .Setup<Task<HttpResponseMessage>>(
                     "SendAsync",
-                    ItExpr.Is<HttpRequestMessage>(m=>m.Headers.TryGetValues("Reloadly-Client", out discard) == false),
+                    ItExpr.Is<HttpRequestMessage>(m => m.Headers.TryGetValues("Reloadly-Client", out discard) == false),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(new HttpResponseMessage { Content = new StringContent("{}") });
 
@@ -75,6 +77,40 @@ namespace Reloadly.Core.Tests.Unit
                 .SendAsync(new ReloadlyRequest<object>(HttpMethod.Get, new System.Uri(ServiceUrls.AirtimeSandbox)));
 
             Assert.IsNotNull(response);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(RateLimitException))]
+        public async Task ShouldThrowRateLimitException()
+        {
+            var mhMock = new Mock<HttpMessageHandler>();
+
+            var mockResponse = new HttpResponseMessage
+            {
+                RequestMessage = new HttpRequestMessage() { RequestUri = new System.Uri("https://topups.reloadly.com") },
+                StatusCode = HttpStatusCode.TooManyRequests
+            };
+
+            mockResponse.Headers.TryAddWithoutValidation("X-RateLimit-Limit", "10");
+            mockResponse.Headers.TryAddWithoutValidation("X-RateLimit-Remaining", "0");
+            mockResponse.Headers.TryAddWithoutValidation("X-RateLimit-Reset", "0");
+
+            mhMock.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
+
+            var httpClient = new HttpClient(mhMock.Object);
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+            httpClientFactoryMock.Setup(m => m.CreateClient(It.IsAny<string>())).Returns(httpClient);
+
+            var reloadlyHttpClient = new ReloadlyHttpClient(
+                httpClientFactoryMock.Object, ReloadlyApiVersion.AirtimeV1, disableTelemetry: false);
+
+            var response = await reloadlyHttpClient
+                .SendAsync(new ReloadlyRequest<object>(HttpMethod.Get, new System.Uri(ServiceUrls.AirtimeSandbox)));
         }
     }
 }
