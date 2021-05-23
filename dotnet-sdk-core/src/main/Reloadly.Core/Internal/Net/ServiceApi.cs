@@ -25,7 +25,7 @@ namespace Reloadly.Core.Internal.Net
             ClientSecret = clientSecret;
         }
 
-        protected void ValidateCredentials(string clientId, string clientSecret)
+        protected static void ValidateCredentials(string clientId, string clientSecret)
         {
             if (string.IsNullOrWhiteSpace(clientId) &&
                 string.IsNullOrWhiteSpace(clientSecret))
