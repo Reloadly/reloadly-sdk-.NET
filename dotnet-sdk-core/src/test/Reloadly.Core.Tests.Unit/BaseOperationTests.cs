@@ -17,7 +17,7 @@ namespace Reloadly.Core.Tests.Unit
             var operation = new BaseOperationImpl(httpClientMock, new Uri(baseUri), Enums.ReloadlyEnvironment.Sandbox);
 
             Assert.AreEqual(httpClientMock.GetHashCode(), operation.HttpClient.GetHashCode());
-            Assert.AreEqual(baseUri, operation.BaseUri);
+            Assert.AreEqual(new Uri(baseUri), operation.BaseUri);
             Assert.AreEqual(Enums.ReloadlyEnvironment.Sandbox, operation.Environment);
         }
     }
