@@ -36,6 +36,8 @@ jobs:
           command: dotnet build .\dotnet-sdk-airtime\src\main\Reloadly.Airtime.csproj
       - run:
           command: dotnet test .\dotnet-sdk-airtime\src\test\Reloadly.Airtime.Tests.Unit\Reloadly.Airtime.Tests.Unit.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      - run:
+          command: dotnet test .\dotnet-sdk-airtime\src\test\Reloadly.Airtime.Tests.Integration\Reloadly.Airtime.Tests.Integration.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
       # Code Coverage
       - run:
           command: dotnet tool install --global Codecov.Tool

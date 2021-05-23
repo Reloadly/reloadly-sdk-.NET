@@ -76,7 +76,7 @@ namespace Reloadly.Core.Internal.Net
         {
             if ((int)responseMessage.StatusCode == STATUS_CODE_TOO_MANY_REQUEST)
             {
-                return await CreateRateLimitException(request, responseMessage);
+                return CreateRateLimitException<TResponse>(responseMessage);
             }
 
             var body = responseMessage.Content != null
@@ -99,17 +99,10 @@ namespace Reloadly.Core.Internal.Net
             throw new ApiException(body, (int)responseMessage.StatusCode, responseMessage.RequestMessage.RequestUri.AbsolutePath);
         }
 
-        private async Task<ReloadlyException> CreateRateLimitException<TResponse>(
-            ReloadlyRequest<TResponse> request, HttpResponseMessage response)
+        private ReloadlyException CreateRateLimitException<TResponse>(
+            HttpResponseMessage response)
             where TResponse : class
         {
-            var exception = await CreateResponseException(request, response);
-
-            if (!(exception is RateLimitException rateLimitException))
-            {
-                return exception;
-            }
-
             string limitValue = response.Headers.GetValues("X-RateLimit-Limit").FirstOrDefault();
             string remainingValue = response.Headers.GetValues("X-RateLimit-Remaining").FirstOrDefault();
             string resetValue = response.Headers.GetValues("X-RateLimit-Reset").FirstOrDefault();
@@ -118,11 +111,12 @@ namespace Reloadly.Core.Internal.Net
             var remaining = long.TryParse(remainingValue, out var parsedRemaining) ? parsedRemaining : (long?)null;
             var reset = double.TryParse(resetValue, out var parsedReset) ? parsedReset : (double?)null;
 
-            rateLimitException.Limit = limit;
-            rateLimitException.Remaining = remaining;
-            rateLimitException.ExpectedResetTimestamp = reset != null ? UnixTimeStampToDateTime(reset.Value) : (DateTime?)null;
-
-            return rateLimitException;
+            return new RateLimitException("Too many requests.", response.RequestMessage.RequestUri.AbsolutePath, 429, string.Empty)
+            {
+                Limit = limit,
+                Remaining = remaining,
+                ExpectedResetTimestamp = reset != null ? UnixTimeStampToDateTime(reset.Value) : (DateTime?)null
+            };
         }
 
         private static DateTime UnixTimeStampToDateTime(double unixTimeStamp)

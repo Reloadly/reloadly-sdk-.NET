@@ -14,7 +14,7 @@ namespace Reloadly.Airtime.Tests.Integration
             var page2 = new QueryFilter().WithPage(2, 5);
             var result2 = await AirtimeApi.Discounts.ListAsync(page2);
 
-            Assert.AreNotEqual(result1.Content[0].UpdatedAt, result2.Content[0].UpdatedAt);
+            Assert.AreNotEqual(result1.Content[0].Operator.Name, result2.Content[0].Operator.Name);
         }
 
         [TestMethod]

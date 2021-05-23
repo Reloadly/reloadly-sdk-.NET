@@ -9,10 +9,12 @@ namespace Reloadly.Airtime.Tests.Integration
         [TestMethod]
         public async Task GetByCountryCode()
         {
-            var promotions = await AirtimeApi.Promotions.GetByCountryCodeAsync("CA");
+            var promotions = (await AirtimeApi.Promotions.ListAsync()).Content;
             var @operator = await AirtimeApi.Operators.GetByIdAsync(promotions[0].OperatorId);
+            var country = @operator.Country.IsoName;
 
-            Assert.AreEqual("United Kingdom", @operator.Country.Name);
+            promotions = await AirtimeApi.Promotions.GetByCountryCodeAsync(country);
+            Assert.IsTrue(promotions.Count > 0);
         }
 
         [TestMethod]
@@ -21,16 +23,19 @@ namespace Reloadly.Airtime.Tests.Integration
             var promotions = (await AirtimeApi.Promotions.ListAsync()).Content;
             var result = await AirtimeApi.Promotions.GetByIdAsync(promotions[0].Id);
 
+            var @operator = await AirtimeApi.Operators.GetByIdAsync(promotions[0].OperatorId);
+            var country = @operator.Country.IsoName;
+
             Assert.AreEqual(promotions[0].Id, result.Id);
         }
 
         [TestMethod]
         public async Task GetByOperatorId()
         {
-            var operatorId = (await AirtimeApi.Operators.ListAsync()).Content[0].Id;
-            var promotions = await AirtimeApi.Promotions.GetByOperatorIdAsync(operatorId);
+            var promotions = (await AirtimeApi.Promotions.ListAsync()).Content;
+            promotions = await AirtimeApi.Promotions.GetByOperatorIdAsync(promotions[0].OperatorId);
 
-            Assert.AreEqual(operatorId, promotions[0].OperatorId);
+            Assert.AreEqual(promotions[0].OperatorId, promotions[0].OperatorId);
         }
     }
 }

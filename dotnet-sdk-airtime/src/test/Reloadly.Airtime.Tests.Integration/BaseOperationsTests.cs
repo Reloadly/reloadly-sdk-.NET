@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using ReloadlyEnvironment = Reloadly.Core.Enums.ReloadlyEnvironment;
 
 namespace Reloadly.Airtime.Tests.Integration
@@ -11,8 +12,18 @@ namespace Reloadly.Airtime.Tests.Integration
         [TestInitialize]
         public void Initialize()
         {
+            var dict = Environment.GetEnvironmentVariables();
+            foreach (var key in dict.Keys)
+            {
+                if (key?.ToString().StartsWith("Credentials") ?? false)
+                {
+                    Console.WriteLine(key?.ToString() + "=" + dict[key]?.ToString());
+                }
+            }
+
             var builder = new ConfigurationBuilder()
-                .AddUserSecrets<Credentials>();
+                .AddUserSecrets<Credentials>()
+                .AddEnvironmentVariables();
 
             var configuration = builder.Build();
             configuration.Bind("Credentials", _credentials);

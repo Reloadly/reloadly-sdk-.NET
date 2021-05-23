@@ -13,21 +13,21 @@ namespace Reloadly.Core.Internal
             Uri = uri;
         }
 
-        public ReloadlyRequest<TResponse> AddHeader(string name, string value)
+        public new ReloadlyRequest<TResponse> SetHeader(string name, string value)
         {
-            RequestHeaders[name] = value;
+            base.SetHeader(name, value);
             return this;
         }
 
-        public ReloadlyRequest<TResponse> AddParameter(string name, string value)
+        public new ReloadlyRequest<TResponse> SetQueryParameter(string name, string value)
         {
-            QueryParameters[name] = value;
+            base.SetQueryParameter(name, value);
             return this;
         }
 
         public new ReloadlyRequest<TResponse> SetBody(object value)
         {
-            Body = value;
+            base.SetBody(value);
             return this;
         }
     }
