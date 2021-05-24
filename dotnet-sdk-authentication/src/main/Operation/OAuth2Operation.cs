@@ -72,7 +72,7 @@ namespace Reloadly.Authentication.Operation
 
             request
                 .SetBody(requestBody)
-                .AddHeader(HeaderNames.Accept, MediaTypeNames.Application.Json);
+                .SetHeader(HeaderNames.Accept, MediaTypeNames.Application.Json);
 
             return _httpClient.SendAsync(request);
         }

@@ -72,8 +72,8 @@ namespace Reloadly.Airtime.Operation
             var accessToken = await RetrieveAccessTokenAsync();
 
             return new ReloadlyRequest<TResponse>(HttpMethod.Get, uri)
-                .AddHeader(HeaderNames.Accept, ReloadlyApiVersion.AirtimeV1)
-                .AddHeader(HeaderNames.Authorization, $"Bearer {accessToken}");
+                .SetHeader(HeaderNames.Accept, ReloadlyApiVersion.AirtimeV1)
+                .SetHeader(HeaderNames.Authorization, $"Bearer {accessToken}");
         }
 
         protected async Task<ReloadlyRequest<TResponse>> CreatePostRequestAsync<TResponse>(Uri uri, object body)
@@ -82,9 +82,9 @@ namespace Reloadly.Airtime.Operation
             var accessToken = await RetrieveAccessTokenAsync();
 
             return new ReloadlyRequest<TResponse>(HttpMethod.Post, uri)
-                .AddHeader(HeaderNames.Accept, ReloadlyApiVersion.AirtimeV1)
-                .AddHeader(HeaderNames.ContentType, MediaTypeNames.Application.Json)
-                .AddHeader(HeaderNames.Authorization, $"Bearer {accessToken}")
+                .SetHeader(HeaderNames.Accept, ReloadlyApiVersion.AirtimeV1)
+                .SetHeader(HeaderNames.ContentType, MediaTypeNames.Application.Json)
+                .SetHeader(HeaderNames.Authorization, $"Bearer {accessToken}")
                 .SetBody(body);
         }
 
