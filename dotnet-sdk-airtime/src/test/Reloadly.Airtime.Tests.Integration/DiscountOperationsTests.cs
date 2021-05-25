@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Reloadly.Core.Internal.Filter;
 using System.Threading.Tasks;
 
@@ -14,7 +15,7 @@ namespace Reloadly.Airtime.Tests.Integration
             var page2 = new QueryFilter().WithPage(2, 5);
             var result2 = await AirtimeApi.Discounts.ListAsync(page2);
 
-            Assert.AreNotEqual(result1.Content[0].Operator.Name, result2.Content[0].Operator.Name);
+            Assert.AreNotEqual(JsonConvert.SerializeObject(result1), JsonConvert.SerializeObject(result2));
         }
 
         [TestMethod]
